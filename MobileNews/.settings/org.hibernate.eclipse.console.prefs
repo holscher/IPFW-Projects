@@ -1,0 +1,5 @@
+#Sun Mar 20 14:22:30 EDT 2011
+default.configuration=MobileNews
+eclipse.preferences.version=1
+hibernate3.enabled=true
+namingStrategy.enabled=false

@@ -1,0 +1,25 @@
+.title {
+  
+}
+
+.location {
+  display: block;
+}
+
+.stories {
+  /* position: absolute; */
+    display: block;
+}
+
+.articles {
+  position: absolute;
+  visibility: hidden;
+  background-color: rgb(235,235,255);
+  left: 25px;
+  border-color: black;
+  
+}
+
+.article {
+  display: block;
+}

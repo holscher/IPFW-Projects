@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.microsoft.com/search/local/ws/rest/v1" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/search/local/ws/rest/v1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="RoutePath">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Line" type="tns:Line" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Line">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Shape">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Point" type="tns:Point" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="Shape" abstract="true">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="BoundingBox" type="tns:ArrayOfDouble" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfDouble">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="double" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Point">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Shape">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="Latitude" type="xs:double" />
+          <xs:element minOccurs="1" maxOccurs="1" name="Longitude" type="xs:double" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ResourceSet">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="EstimatedTotal" type="xs:long" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Resources" type="tns:ArrayOfChoice1" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfChoice1">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element minOccurs="1" maxOccurs="1" name="Route" nillable="true" type="tns:Route" />
+      <xs:element minOccurs="1" maxOccurs="1" name="DataflowJob" nillable="true" type="tns:DataflowJob" />
+      <xs:element minOccurs="1" maxOccurs="1" name="BirdseyeMetadata" nillable="true" type="tns:BirdseyeMetadata" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Location" nillable="true" type="tns:Location" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Resource" nillable="true" type="tns:Resource" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ImageryMetadata" nillable="true" type="tns:ImageryMetadata" />
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="Route">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Resource">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="DistanceUnit" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="DurationUnit" type="xs:string" />
+          <xs:element minOccurs="1" maxOccurs="1" name="TravelDistance" type="xs:double" />
+          <xs:element minOccurs="1" maxOccurs="1" name="TravelDuration" type="xs:long" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="RouteLeg" type="tns:RouteLeg" />
+          <xs:element minOccurs="0" maxOccurs="1" name="RoutePath" type="tns:RoutePath" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="Resource">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Name" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Id" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Link" type="tns:Link" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Point" type="tns:Point" />
+      <xs:element minOccurs="0" maxOccurs="1" name="BoundingBox" type="tns:BoundingBox" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Link">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute form="unqualified" name="role" type="xs:string" />
+        <xs:attribute form="unqualified" name="name" type="xs:string" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="BoundingBox">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="SouthLatitude" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="WestLongitude" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="NorthLatitude" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="EastLongitude" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ImageryMetadata">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Resource">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="ImageUrl" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="ImageUrlSubdomains" type="tns:ArrayOfString" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ImageWidth" type="xs:int" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ImageHeight" type="xs:int" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ZoomMin" type="xs:int" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ZoomMax" type="xs:int" />
+          <xs:element minOccurs="0" maxOccurs="1" name="VintageStart" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="VintageEnd" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ImageryProvider" type="tns:ImageryProvider" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfString">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ImageryProvider">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Attribution" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CoverageArea" type="tns:CoverageArea" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CoverageArea">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="ZoomMin" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ZoomMax" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="BoundingBox" type="tns:BoundingBox" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="BirdseyeMetadata">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ImageryMetadata">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="Orientation" type="xs:double" />
+          <xs:element minOccurs="1" maxOccurs="1" name="TilesX" type="xs:int" />
+          <xs:element minOccurs="1" maxOccurs="1" name="TilesY" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="DataflowJob">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Resource">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Description" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Status" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="xs:string" />
+          <xs:element minOccurs="1" maxOccurs="1" name="CreatedDate" type="xs:dateTime" />
+          <xs:element minOccurs="1" maxOccurs="1" name="CompletedDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="1" maxOccurs="1" name="TotalEntityCount" type="xs:long" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ProcessedEntityCount" type="xs:long" />
+          <xs:element minOccurs="1" maxOccurs="1" name="FailedEntityCount" type="xs:long" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="Location">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Resource">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="EntityType" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Address" type="tns:Address" />
+          <xs:element minOccurs="1" maxOccurs="1" name="Confidence" type="tns:Confidence" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="Address">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="AddressLine" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="AdminDistrict" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="AdminDistrict2" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="CountryRegion" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="FormattedAddress" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Locality" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="PostalCode" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="Confidence">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="High" />
+      <xs:enumeration value="Medium" />
+      <xs:enumeration value="Low" />
+      <xs:enumeration value="Unknown" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="RouteLeg">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="TravelDistance" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="TravelDuration" type="xs:long" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ActualStart" type="tns:Point" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ActualEnd" type="tns:Point" />
+      <xs:element minOccurs="0" maxOccurs="1" name="StartLocation" type="tns:Location" />
+      <xs:element minOccurs="0" maxOccurs="1" name="EndLocation" type="tns:Location" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ItineraryItem" type="tns:ItineraryItem" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ItineraryItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="TravelMode" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="TravelDistance" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="TravelDuration" type="xs:long" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ManeuverPoint" type="tns:Point" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Instruction" type="tns:Instruction" />
+      <xs:element minOccurs="0" maxOccurs="1" name="CompassDirection" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Hint" type="tns:Hint" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Warning" type="tns:Warning" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Instruction">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="maneuverType" type="xs:string" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="Hint">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="hintType" type="xs:string" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="Warning">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="warningType" type="xs:string" />
+        <xs:attribute name="severity" type="xs:string" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:element name="Response" nillable="true" type="tns:Response" />
+  <xs:complexType name="Response">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Copyright" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="BrandLogoUri" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="StatusCode" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="StatusDescription" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="AuthenticationResultCode" type="tns:AuthenticationResultCode" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ErrorDetails" type="tns:ArrayOfString" />
+      <xs:element minOccurs="0" maxOccurs="1" name="TraceId" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ResourceSets" type="tns:ArrayOfResourceSet" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="AuthenticationResultCode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="NoCredentials" />
+      <xs:enumeration value="ValidCredentials" />
+      <xs:enumeration value="InvalidCredentials" />
+      <xs:enumeration value="CredentialsExpired" />
+      <xs:enumeration value="NotAuthorized" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ArrayOfResourceSet">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ResourceSet" nillable="true" type="tns:ResourceSet" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="DataflowJobStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Unknown" />
+      <xs:enumeration value="Pending" />
+      <xs:enumeration value="Completed" />
+      <xs:enumeration value="Aborted" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

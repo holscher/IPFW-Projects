@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="/MobileNewsEAR/EarContent/lib/geonames-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/MobileNewsEAR/EarContent/lib/jts-1.11.jar" sourcepath="C:/Users/david/.m2/repository/com/vividsolutions/jts/1.11/jts-1.11-sources.jar"/>
+	<classpathentry kind="lib" path="/MobileNewsEAR/EarContent/lib/hibernate-spatial-1.1-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="/MobileNewsEAR/EarContent/lib/hibernate-spatial-oracle-1.1-SNAPSHOT.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.jboss.ide.eclipse.as.core.server.runtime.runtimeTarget/JBoss 6.0 Runtime">
+		<attributes>
+			<attribute name="owner.project.facets" value="jpt.jpa"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>
