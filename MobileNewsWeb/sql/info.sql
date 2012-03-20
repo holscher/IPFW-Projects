@@ -1,4 +1,4 @@
---Comment
+
 select sdo_geom.sdo_distance(a.location, b.location, 1, 'unit=METER') from article a, article b;
 
 select this_.title as y0_, this_.location as y1_, SDO_GEOM.SDO_DISTANCE(this_.location, MDSYS.SDO_GEOMETRY(2001,4326,MDSYS.SDO_POINT_TYPE(-87.527779,38.67301,null),null,null) , 1.0, 'METER') distance from Article this_ where SDO_WITHIN_DISTANCE(this_.location,MDSYS.SDO_GEOMETRY(2001,4326,MDSYS.SDO_POINT_TYPE(-85.157387,41.185081,null),null,null),'unit=METER distance=5000.0') = 'TRUE';
