@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Synd
+Bundle-SymbolicName: com.holschers.synd
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: com.holschers.synd.Activator
+Bundle-Vendor: HOLSCHERS
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: javax.servlet,
+ javax.servlet.http,
+ org.osgi.framework;version="1.3.0",
+ org.osgi.service.http;version="1.2.1",
+ org.osgi.util.tracker;version="1.5.0"
+Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: rome-1.0.jar,
+ .,
+ jdom-1.0.jar
